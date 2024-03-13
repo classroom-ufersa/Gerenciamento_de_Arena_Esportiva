@@ -12,3 +12,12 @@ struct evento{
     char tipo[20];
     Times time;
 };
+
+void criar_evento(Evento *evento){
+
+    printf("Qual o nome do evento?\n");
+    scanf(" %[\n]", evento->nome);
+
+    printf("Qual o tipo do evento?\n");
+    scanf(" %[\n]", evento->tipo);
+}

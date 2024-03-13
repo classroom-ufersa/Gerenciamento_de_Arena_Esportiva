@@ -3,3 +3,5 @@
 
 typedef struct evento Evento;
 typedef struct times Times;
+
+void criar_evento(Evento *evento);
