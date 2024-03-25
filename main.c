@@ -1,2 +1,8 @@
-#include "gerenciamento.h"
+#include"evento.h"
+
+int main(){
+
+    
+    return 0;
+}
 
