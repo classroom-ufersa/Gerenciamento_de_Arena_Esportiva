@@ -2,19 +2,17 @@
 #include "../Funções/funcao.h"
 
 // Definindo a estrutura Time
-typedef struct time {
+typedef struct times {
     char nome[50];
     char origem[50];
     char tecnico[50];
     int qtd_jogadores;
     struct time *prox;
-    Time *primeiro_time; // Ponteiro para o primeiro time na lista
-
-} Time;
+} Times;
 
 // Função para criar um novo time e adicioná-lo à lista
 void adicionar_time(Times *times) {
-    Time *novo_time = (Time *)malloc(sizeof(Time));
+    Times *novo_time = (Times *)malloc(sizeof(Times));
     
     if (novo_time == NULL) {
         printf("Erro ao alocar memória para o novo time.\n");
@@ -36,16 +34,65 @@ void adicionar_time(Times *times) {
     printf("Quantidade de jogadores: ");
     scanf("%d", &novo_time->qtd_jogadores);
     getchar(); // Limpar o buffer do teclado
+
+    novo_time->prox = NULL;
+
+    if(novo_time == NULL || strcmp (times->nome, novo_time->nome) >0){
+        times->prox = novo_time;
+        return novo_time;
+    }
     
-    novo_time->prox = times->primeiro_time; // O próximo time agora será o antigo primeiro time na lista
-    
-    times->primeiro_time = novo_time; // Atualizar o ponteiro para o primeiro time na lista
+    Times *ant = NULL;
+    Times *atual = times;
+
+     while (atual != NULL && strcmp(atual->nome, novo_time->nome) < 0)
+    {
+        ant = atual;
+        atual = atual->prox;
+    }
+
+    ant->prox = times;
+    novo_time->prox = atual;
+
+    return times;
 }
+
+Times *buscar_times(Times *times){
+    char i[20];
+    Printf("Informe o nome");
+    scanf(" %[^\n]", i);
+    Times *aux = times;
+
+
+    while(aux != NULL && strcmp(aux->nome,i) != 0){
+        aux = aux->prox;
+        return aux;
+    }
+}
+
+void editar_times(Times *times){
+    Times *aux = buscar_times(times);
+        char origem[20];
+        Printf("Insira a nova origem");
+        scanf(" %[^\n]", origem);
+        char tecnico[50];
+         Printf("Insira o novo tecnico");
+        scanf(" %[^\n]", tecnico);
+        int qnt_jogadores;
+        Printf("Insira a nova quantidade de jogadores");
+        scanf("%d", qnt_jogadores);
+    
+        strcpy(aux->origem,origem);
+        strcpy(aux->tecnico,tecnico);
+        aux->qtd_jogadores = qnt_jogadores;
+}
+
+
 
 // Função para imprimir todos os times na lista
 void imprimir_times(const Times *times) {
     printf("\nLista de times:\n");
-    Time *time_atual = times->primeiro_time;
+    Times *time_atual = times;
     while (time_atual != NULL) {
         printf("Nome: %s\n", time_atual->nome);
         printf("Origem: %s\n", time_atual->origem);
