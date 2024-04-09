@@ -3,7 +3,7 @@
 
 int main() {
     Evento *lista_eventos = NULL; // Inicialmente, a lista está vazia
-    
+    Times *lista_times = NULL;
     int opcao;
     
     do {
@@ -13,6 +13,8 @@ int main() {
         printf("3. Adicionar time a um evento\n");
         printf("4. Remover time de um evento\n");
         printf("5. Imprimir eventos\n");
+        printf("6. Buscar time\n");
+        printf("7. Editar time\n");
         printf("0. Sair\n");
         printf("Escolha uma opção: ");
         scanf("%d", &opcao);
@@ -77,6 +79,14 @@ int main() {
             case 5:
                 imprimir_eventos(lista_eventos);
                 break;
+
+            case 6:{
+                buscar_times(lista_times);
+            }    
+            case 7:{
+                editar_times(lista_times);
+                
+            }    
             case 0:
                 printf("Saindo...\n");
                 break;
