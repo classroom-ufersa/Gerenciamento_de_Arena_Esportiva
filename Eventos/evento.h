@@ -1,10 +1,10 @@
-
 #include "../Times/time.c"
 
 // Definição da estrutura Evento
 typedef struct evento Evento;
 
 // Protótipos das funções
+void limpar_tela();
 void adicionar_evento(Evento **lista_eventos);
 void remover_evento(Evento **lista_eventos, const char *nome_evento);
 void adicionar_time_a_evento(Evento *evento);

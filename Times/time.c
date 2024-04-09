@@ -1,7 +1,6 @@
 #include "time.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "../Funções/funcao.h"
+
 // Definindo a estrutura Time
 typedef struct time {
     char nome[50];

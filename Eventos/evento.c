@@ -9,6 +9,7 @@ typedef struct evento {
 
 // Função para criar um novo evento e adicioná-lo à lista
 void adicionar_evento(Evento **lista_eventos) {
+
     Evento *novo_evento = (Evento *)malloc(sizeof(Evento));
     
     if (novo_evento == NULL) {
@@ -23,12 +24,13 @@ void adicionar_evento(Evento **lista_eventos) {
     printf("Tipo do evento: ");
     fgets(novo_evento->tipo, 50, stdin);
     novo_evento->tipo[strcspn(novo_evento->tipo, "\n")] = '\0'; // Remover o '\n' do final da string
-    
+
     novo_evento->times = NULL; // Inicialmente, não há times associados ao evento
     
     novo_evento->prox = *lista_eventos; // O próximo evento agora será o antigo primeiro evento na lista
     
     *lista_eventos = novo_evento; // Atualizar o ponteiro para o primeiro evento na lista
+    
 }
 
 // Função para remover um evento da lista
