@@ -4,7 +4,7 @@ typedef struct evento {
     char nome[50];
     char tipo[50];
     struct evento *prox;
-    Time *times; // Lista encadeada de times associados ao evento
+    Times *times; // Lista encadeada de times associados ao evento
 } Evento;
 
 // Função para criar um novo evento e adicioná-lo à lista
@@ -61,7 +61,7 @@ void remover_evento(Evento **lista_eventos, const char *nome_evento) {
 
 // Função para adicionar um time a um evento
 void adicionar_time_a_evento(Evento *evento) {
-    Time *novo_time = (Time *)malloc(sizeof(Time));
+    Times *novo_time = (Times *)malloc(sizeof(Times));
     
     if (novo_time == NULL) {
         printf("Erro ao alocar memória para o novo time.\n");
@@ -70,7 +70,7 @@ void adicionar_time_a_evento(Evento *evento) {
     
     printf("Nome do time: ");
     fgets(novo_time->nome, 50, stdin);
-    novo_time->nome[strcspn(novo_time->nome, "\n")] = '\0'; // Remover o '\n' do final da string
+    novo_time->nome[strcspn(novo_time->nome, "\n")] = '\0'; // Remover o '\n' do final da string time
     
     printf("Origem do time: ");
     fgets(novo_time->origem, 50, stdin);
@@ -91,8 +91,8 @@ void adicionar_time_a_evento(Evento *evento) {
 
 // Função para remover um time de um evento
 void remover_time_de_evento(Evento *evento, const char *nome_time) {
-    Time *atual = evento->times;
-    Time *anterior = NULL;
+    Times *atual = evento->times;
+    Times *anterior = NULL;
 
     while (atual != NULL) {
         if (strcmp(atual->nome, nome_time) == 0) {
@@ -124,7 +124,7 @@ void imprimir_eventos(const Evento *lista_eventos) {
         printf("Tipo do evento: %s\n", evento_atual->tipo);
         
         printf("Times associados ao evento \"%s\":\n", evento_atual->nome);
-        Time *time_atual = evento_atual->times;
+        Times *time_atual = evento_atual->times;
         while (time_atual != NULL) {
             printf("- Nome do time: %s\n", time_atual->nome);
             printf("  Origem: %s\n", time_atual->origem);

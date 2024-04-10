@@ -1,10 +1,7 @@
 // Definição da estrutura Time
-typedef struct time Time;
+#include "../Funções/funcao.c"
 
-// Definição da estrutura Times
-typedef struct {
-    Time *primeiro_time;
-} Times;
+typedef struct times Times;
 
 // Protótipos das funções
 void adicionar_time(Times *times);

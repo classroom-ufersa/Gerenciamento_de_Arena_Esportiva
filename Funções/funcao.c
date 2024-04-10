@@ -10,3 +10,8 @@ void limpar_tela() {
         system("clear");
     #endif
 }
+
+void limpar_buffer() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
