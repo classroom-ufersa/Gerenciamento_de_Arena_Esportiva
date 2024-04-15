@@ -5,4 +5,3 @@
 
 // Declaração da função limpar_tela()
 void limpar_tela();
-void limpar_buffer();
