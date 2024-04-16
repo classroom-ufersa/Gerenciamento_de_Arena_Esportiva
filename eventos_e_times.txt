@@ -1,2 +1,0 @@
-Nome do evento: evento de futebol	Tipo do evento: futebol
-Nome do time: time azul	Origem: brasil	Técnico: fabio	Quantidade de jogadores: 35
