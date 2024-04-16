@@ -23,18 +23,18 @@ O sistema desse repositorio, permite que o usuário seja capaz de gerenciar uma 
 ***
 
 # Problemática
-Projetar um sistema na Linguagem C para gerenciamemto de uma arena esportiva. O sistema terá que manicuplar eventos e times.
+Projetar um sistema na Linguagem C para gerenciamemto de uma arena esportiva. O sistema terá que manipular eventos e times.
 ***
 
 ## Menu
 As sequintes opçãoes estão presentes no nosso menu:
-- **Criar evento:** Cria um novo evento na lista;
+- **adicionar evento:** Cria um novo evento na lista;
 - **Remove evento:** Remove um evento da lista;
 - **Adiciona time a um evento:** Adiciona um time a um evento presente na lista;
 - **remove time de um evento:** Remove um time do evento da lista;
-- **Editar time:** Edita todas as caracteristicas de um time;
-- **Busca time:** Busca algum time presente na lista de eventos pelo nome;
 - **Listar eventos e seus times:** Mostra a lista de eventos e seus respectivos times;
+- **Busca time:** Busca algum time presente na lista de eventos pelo nome;
+- **Editar time:** Edita todas as caracteristicas de um time;
 - **Sair:** finaliza o programa.
 ***
 
