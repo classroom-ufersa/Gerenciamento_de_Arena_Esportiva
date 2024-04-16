@@ -91,3 +91,6 @@ Times *buscar_time_por_nome(Evento *lista_eventos);
  * @return Um ponteiro para o time editado, ou NULL se o time não for encontrado.
  */
 void *editar_time(Evento *lista_eventos);
+void adicionar_evento_a_lista(Evento **lista_eventos, Evento evento);
+Evento *busca_evento(Evento *lista_eventos, char *nome_evento);
+Evento *ler_eventos_e_times(Evento *lista_eventos);

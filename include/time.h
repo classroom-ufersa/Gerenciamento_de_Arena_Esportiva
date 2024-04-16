@@ -26,3 +26,5 @@ void adicionar_time(Times *times);
  * @param time_atual Ponteiro para o time cujos detalhes serão exibidos.
  */
 void Exibi_Times(Times *time_atual);
+
+Times *adicionar_time_a_lista(Times *atual, Times time);

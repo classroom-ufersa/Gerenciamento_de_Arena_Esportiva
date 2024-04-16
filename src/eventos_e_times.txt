@@ -1,3 +1,2 @@
 Evento:eventoa	tipoa
-Time:timeb	brasil	dudu	20
-Time:tima	brasil	fabio	20
+Time:timenovo	brasil	gabriel	50
