@@ -1,0 +1,2 @@
+Nome do evento: evento	Tipo do evento: tipo
+Nome do time: time w	Origem: brasil	Técnico: yan	Quantidade de jogadores: 67
