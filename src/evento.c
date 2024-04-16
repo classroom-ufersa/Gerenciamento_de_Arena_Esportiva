@@ -1,26 +1,31 @@
 #include "../include/evento.h"
-typedef struct evento {
+typedef struct evento
+{
     char nome[50];
     char tipo[50];
     struct evento *prox;
     Times *times;
 } Evento;
 
-void salvar_eventos_e_times(Evento *lista_eventos) {
-    FILE *arquivo = fopen("eventos_e_times.txt", "w");
+void salvar_eventos_e_times(Evento *lista_eventos)
+{
+    FILE *arquivo = fopen("eventos_e_times.txt", "wt");
 
-    if (arquivo == NULL) {
+    if (arquivo == NULL)
+    {
         printf("Erro ao abrir o arquivo para escrita.\n");
         return;
     }
-    
+
     Evento *evento_atual = lista_eventos;
-    while (evento_atual != NULL) {
-        fprintf(arquivo, "Nome do evento: %s\tTipo do evento: %s\n", evento_atual->nome, evento_atual->tipo);
+    while (evento_atual != NULL)
+    {
+        fprintf(arquivo, "Evento:%s\t%s\n", evento_atual->nome, evento_atual->tipo);
 
         Times *time_atual = evento_atual->times;
-        while (time_atual != NULL) {
-            fprintf(arquivo, "Nome do time: %s\tOrigem: %s\tTécnico: %s\tQuantidade de jogadores: %d\n", time_atual->nome, time_atual->origem, time_atual->tecnico, time_atual->qtd_jogadores);
+        while (time_atual != NULL)
+        {
+            fprintf(arquivo, "Time:%s\t%s\t%s\t%d\n", time_atual->nome, time_atual->origem, time_atual->tecnico, time_atual->qtd_jogadores);
             time_atual = time_atual->prox;
         }
         evento_atual = evento_atual->prox;
@@ -30,34 +35,101 @@ void salvar_eventos_e_times(Evento *lista_eventos) {
     printf("Eventos e times salvos com sucesso no arquivo eventos_e_times.txt.\n");
 }
 
-void adicionar_evento(Evento **lista_eventos) {
+Evento *ler_eventos_e_times(Evento *lista_eventos)
+{
+    FILE *arquivo = fopen("eventos_e_times.txt", "rt");
+    char linha[200];
+    char nome[50];
+    char tipo[50];
+    char origem[50];
+    char tecnico[50];
+    int qtd_jogadores;
+    Evento *atual = NULL;
+    Evento aux;
+    Times temp;
+    while (fgets(linha, 200, arquivo) != NULL)
+    {
+        if (strstr(linha, "Evento:") != NULL)
+        {
+            sscanf(linha, "Evento:%[^\t]\t%[^\n]", nome, tipo);
+            strcpy(aux.nome, nome);
+            strcpy(aux.tipo, tipo);
+            aux.times = NULL;
+            aux.prox = NULL; 
+            adicionar_evento_a_lista(&lista_eventos, aux);
+            atual = busca_evento(lista_eventos, nome);
+        }
+        else if (strstr(linha, "Time:") != NULL)
+        {
+            sscanf(linha, "Time:%[^\t]\t%[^\t]\t%[^\t]\t%d\n", nome, origem, tecnico, &qtd_jogadores);
+            strcpy(temp.nome, nome);
+            strcpy(temp.origem, origem);
+            strcpy(temp.tecnico, tecnico);
+            temp.qtd_jogadores = qtd_jogadores;
+            atual->times = adicionar_time_a_lista(atual->times, temp);
+        }
+    }
+
+    fclose(arquivo);
+    return lista_eventos;
+}
+
+void adicionar_evento(Evento **lista_eventos)
+{
 
     Evento *novo_evento = (Evento *)malloc(sizeof(Evento));
-    
-    if (novo_evento == NULL) {
+
+    if (novo_evento == NULL)
+    {
         printf("Erro ao alocar memória para o novo evento.\n");
         return;
     }
-    
+
     preencher_Evento(novo_evento);
 
     novo_evento->times = NULL;
-    
+
     novo_evento->prox = *lista_eventos;
-    
+
     *lista_eventos = novo_evento;
-    salvar_eventos_e_times(*lista_eventos);
 }
 
-void remover_evento(Evento **lista_eventos, const char *nome_evento) {
+void adicionar_evento_a_lista(Evento **lista_eventos, Evento evento)
+{
+
+    Evento *novo_evento = (Evento *)malloc(sizeof(Evento));
+
+    if (novo_evento == NULL)
+    {
+        printf("Erro ao alocar memória para o novo evento.\n");
+        return;
+    }
+
+    strcpy(novo_evento->nome, evento.nome);
+    strcpy(novo_evento->tipo, evento.tipo);
+
+    novo_evento->times = NULL;
+
+    novo_evento->prox = *lista_eventos;
+
+    *lista_eventos = novo_evento;
+}
+
+void remover_evento(Evento **lista_eventos, const char *nome_evento)
+{
     Evento *atual = *lista_eventos;
     Evento *anterior = NULL;
 
-    while (atual != NULL) {
-        if (strcmp(atual->nome, nome_evento) == 0) {
-            if (anterior == NULL) {
+    while (atual != NULL)
+    {
+        if (strcmp(atual->nome, nome_evento) == 0)
+        {
+            if (anterior == NULL)
+            {
                 *lista_eventos = atual->prox;
-            } else {
+            }
+            else
+            {
                 anterior->prox = atual->prox;
             }
 
@@ -73,30 +145,38 @@ void remover_evento(Evento **lista_eventos, const char *nome_evento) {
     printf("Evento \"%s\" não encontrado na lista.\n", nome_evento);
 }
 
-void adicionar_time_a_evento(Evento *evento) {
+void adicionar_time_a_evento(Evento *evento)
+{
     Times *novo_time = (Times *)malloc(sizeof(Times));
-    
-    if (novo_time == NULL) {
+
+    if (novo_time == NULL)
+    {
         printf("Erro ao alocar memória para o novo time.\n");
         return;
     }
-    
+
     adicionar_time(novo_time);
-    
+
     novo_time->prox = evento->times;
-    
+
     evento->times = novo_time;
 }
 
-void remover_time_de_evento(Evento *evento, const char *nome_time) {
+void remover_time_de_evento(Evento *evento, const char *nome_time)
+{
     Times *atual = evento->times;
     Times *anterior = NULL;
 
-    while (atual != NULL) {
-        if (strcmp(atual->nome, nome_time) == 0) {
-            if (anterior == NULL) {
+    while (atual != NULL)
+    {
+        if (strcmp(atual->nome, nome_time) == 0)
+        {
+            if (anterior == NULL)
+            {
                 evento->times = atual->prox;
-            } else {
+            }
+            else
+            {
                 anterior->prox = atual->prox;
             }
 
@@ -112,33 +192,37 @@ void remover_time_de_evento(Evento *evento, const char *nome_time) {
     printf("Time \"%s\" não encontrado no evento \"%s\".\n", nome_time, evento->nome);
 }
 
-void imprimir_eventos(Evento *lista_eventos) {
+void imprimir_eventos(Evento *lista_eventos)
+{
     printf("\nLista de eventos:\n");
     Evento *evento_atual = lista_eventos;
-    while (evento_atual != NULL) {
+    while (evento_atual != NULL)
+    {
         printf("Nome do evento: %s\n", evento_atual->nome);
         printf("Tipo do evento: %s\n", evento_atual->tipo);
-        
+
         printf("Times associados ao evento \"%s\":\n", evento_atual->nome);
         Times *time_atual = evento_atual->times;
-        while (time_atual != NULL) {
+        while (time_atual != NULL)
+        {
             Exibi_Times(time_atual);
             time_atual = time_atual->prox;
         }
-        
+
         printf("\n");
         evento_atual = evento_atual->prox;
     }
 }
 
-void preencher_Evento(Evento *novo_evento){
+void preencher_Evento(Evento *novo_evento)
+{
     do
     {
         printf("Nome do evento: ");
         fgets(novo_evento->nome, 50, stdin);
         novo_evento->nome[strcspn(novo_evento->nome, "\n")] = '\0';
     } while (contem_apenas_letras(novo_evento->nome) == 0);
-    
+
     do
     {
         printf("Tipo do evento: ");
@@ -147,17 +231,20 @@ void preencher_Evento(Evento *novo_evento){
     } while (contem_apenas_letras(novo_evento->tipo) == 0);
 }
 
-Times *buscar_time_por_nome(Evento *lista_eventos) {
+Times *buscar_time_por_nome(Evento *lista_eventos)
+{
     char nome_evento[50];
     char nome_time[50];
 
     printf("Informe o nome do evento: ");
     fgets(nome_evento, sizeof(nome_evento), stdin);
-    nome_evento[strcspn(nome_evento, "\n")] = '\0'; 
+    nome_evento[strcspn(nome_evento, "\n")] = '\0';
 
     Evento *evento_atual = lista_eventos;
-    while (evento_atual != NULL) {
-        if (strcmp(evento_atual->nome, nome_evento) == 0) {
+    while (evento_atual != NULL)
+    {
+        if (strcmp(evento_atual->nome, nome_evento) == 0)
+        {
             printf("Evento \"%s\" encontrado.\n", nome_evento);
 
             printf("Informe o nome do time que deseja buscar no evento \"%s\": ", nome_evento);
@@ -165,8 +252,10 @@ Times *buscar_time_por_nome(Evento *lista_eventos) {
             nome_time[strcspn(nome_time, "\n")] = '\0';
 
             Times *time_atual = evento_atual->times;
-            while (time_atual != NULL) {
-                if (strcmp(time_atual->nome, nome_time) == 0) {
+            while (time_atual != NULL)
+            {
+                if (strcmp(time_atual->nome, nome_time) == 0)
+                {
                     printf("Time \"%s\" encontrado no evento \"%s\"!\n", nome_time, nome_evento);
                     Exibi_Times(time_atual);
                     return time_atual;
@@ -184,7 +273,8 @@ Times *buscar_time_por_nome(Evento *lista_eventos) {
     return NULL;
 }
 
-void *editar_time(Evento *lista_eventos) {
+void *editar_time(Evento *lista_eventos)
+{
     char nome_evento[50];
     char nome_time[50];
 
@@ -193,8 +283,10 @@ void *editar_time(Evento *lista_eventos) {
     nome_evento[strcspn(nome_evento, "\n")] = '\0';
 
     Evento *evento_atual = lista_eventos;
-    while (evento_atual != NULL) {
-        if (strcmp(evento_atual->nome, nome_evento) == 0) {
+    while (evento_atual != NULL)
+    {
+        if (strcmp(evento_atual->nome, nome_evento) == 0)
+        {
             printf("Evento \"%s\" encontrado.\n", nome_evento);
 
             printf("Informe o nome do time que deseja buscar no evento \"%s\": ", nome_evento);
@@ -202,25 +294,43 @@ void *editar_time(Evento *lista_eventos) {
             nome_time[strcspn(nome_time, "\n")] = '\0';
 
             Times *time_atual = evento_atual->times;
-            while (time_atual != NULL) {
-                if (strcmp(time_atual->nome, nome_time) == 0) {
+            while (time_atual != NULL)
+            {
+                if (strcmp(time_atual->nome, nome_time) == 0)
+                {
                     printf("Time \"%s\" encontrado no evento \"%s\"!\n", nome_time, nome_evento);
                     printf("Detalhes do time:\n");
-                    
+
                     adicionar_time(time_atual);
 
                     printf("Time \"%s\" editado com sucesso no evento \"%s\"!\n", nome_time, nome_evento);
                 }
-                else{
+                else
+                {
                     printf("Time \"%s\" não encontrado no evento \"%s\".\n", nome_time, nome_evento);
                     return NULL;
                 }
                 time_atual = time_atual->prox;
             }
         }
-        else{
+        else
+        {
             printf("Evento \"%s\" não encontrado na lista.\n", nome_evento);
         }
         evento_atual = evento_atual->prox;
     }
+}
+
+Evento *busca_evento(Evento *lista_eventos, char *nome_evento)
+{
+    Evento *temp = lista_eventos;
+    while (temp != NULL)
+    {
+        if (strcmp(temp->nome, nome_evento) == 0)
+        {
+            return temp;
+        }
+        temp = temp->prox;
+    }
+    return NULL;
 }

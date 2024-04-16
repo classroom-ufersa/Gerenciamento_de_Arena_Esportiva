@@ -5,6 +5,8 @@ int main() {
     char opcao;
     int n = 1;
 
+    lista_eventos = ler_eventos_e_times(lista_eventos);
+
     do {
         printf(" ====== Menu ======\n");
         printf("1. Adicionar evento\n");
@@ -32,6 +34,7 @@ int main() {
         switch (opcao) {
             case '1':
                 adicionar_evento(&lista_eventos);
+                salvar_eventos_e_times(lista_eventos);
                 limpar_tela();
                 break;
             case '2': {

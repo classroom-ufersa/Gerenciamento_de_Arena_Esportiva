@@ -35,6 +35,26 @@ void adicionar_time(Times *novo_time) {
     getchar();
 }
 
+Times *adicionar_time_a_lista(Times *atual, Times time)
+{
+
+    Times *novo_time = (Times *)malloc(sizeof(Times));
+
+    if (novo_time == NULL)
+    {
+        printf("Erro ao alocar memória para o novo evento.\n");
+        return NULL;
+    }
+
+    strcpy(novo_time->nome, time.nome);
+    strcpy(novo_time->origem, time.origem);
+    strcpy(novo_time->tecnico, time.tecnico);
+    novo_time->qtd_jogadores = time.qtd_jogadores;
+
+    novo_time->prox = atual;
+    return novo_time;
+}
+
 void Exibi_Times(Times *time_atual){
         printf("Detalhes do time:\n");
         printf("- Nome do time: %s\n", time_atual->nome);     
