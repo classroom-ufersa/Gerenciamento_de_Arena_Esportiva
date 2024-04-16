@@ -76,9 +76,8 @@ Evento *ler_eventos_e_times(Evento *lista_eventos)
 
 void adicionar_evento(Evento **lista_eventos)
 {
-
     Evento *novo_evento = (Evento *)malloc(sizeof(Evento));
-
+    
     if (novo_evento == NULL)
     {
         printf("Erro ao alocar memória para o novo evento.\n");
@@ -86,12 +85,27 @@ void adicionar_evento(Evento **lista_eventos)
     }
 
     preencher_Evento(novo_evento);
-
     novo_evento->times = NULL;
+    novo_evento->prox = NULL;
 
-    novo_evento->prox = *lista_eventos;
+    if (*lista_eventos == NULL || strcmp(novo_evento->nome, (*lista_eventos)->nome) < 0)
+    {
+        novo_evento->prox = *lista_eventos;
+        *lista_eventos = novo_evento;
+        return;
+    }
 
-    *lista_eventos = novo_evento;
+    Evento *atual = *lista_eventos;
+    Evento *anterior = NULL;
+    
+    while (atual != NULL && strcmp(atual->nome, novo_evento->nome) < 0)
+    {
+        anterior = atual;
+        atual = atual->prox;
+    }
+
+    anterior->prox = novo_evento;
+    novo_evento->prox = atual;
 }
 
 void adicionar_evento_a_lista(Evento **lista_eventos, Evento evento)
