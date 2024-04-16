@@ -10,3 +10,13 @@ void limpar_tela() {
         system("clear");
     #endif
 }
+
+int contem_apenas_letras(char *str) {
+    for (int index = 0; str[index] != '\0'; index++) {
+        if (!isalpha(str[index]) && str[index] != ' ') {
+            printf("Esse campo deve conter apenas letras.\n");
+            return 0;
+        }
+    }
+    return 1;
+}

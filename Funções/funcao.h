@@ -5,3 +5,4 @@
 
 // Declaração da função limpar_tela()
 void limpar_tela();
+int contem_apenas_letras(char *str);

@@ -41,7 +41,9 @@ int main() {
                 printf("Digite o nome do evento que deseja remover: ");
                 fgets(nome_evento_remover, sizeof(nome_evento_remover), stdin);
                 nome_evento_remover[strcspn(nome_evento_remover, "\n")] = '\0';
+                
                 remover_evento(&lista_eventos, nome_evento_remover);
+                salvar_eventos_e_times(lista_eventos);
                 limpar_tela();
                 break;
             }
@@ -63,6 +65,7 @@ int main() {
                 if (evento_atual == NULL) {
                     printf("Evento \"%s\" não encontrado na lista.\n", nome_evento_adicionar_time);
                 }
+                salvar_eventos_e_times(lista_eventos);
                 limpar_tela();
                 break;
             }
@@ -87,6 +90,7 @@ int main() {
                 if (evento_atual == NULL) {
                     printf("Evento \"%s\" não encontrado na lista.\n", nome_evento_remover_time);
                 }
+                salvar_eventos_e_times(lista_eventos);
                 limpar_tela();
                 break;
             }

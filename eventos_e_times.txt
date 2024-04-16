@@ -1,3 +1,2 @@
-Nome do evento: eve1	Tipo do evento: tipo1
-Nome do time: time5	Origem: origem5	Técnico: tec5	Quantidade de jogadores: 20
-Nome do time: time3	Origem: origem3	Técnico: tec3	Quantidade de jogadores: 50
+Nome do evento: evento de futebol	Tipo do evento: futebol
+Nome do time: time azul	Origem: brasil	Técnico: fabio	Quantidade de jogadores: 35

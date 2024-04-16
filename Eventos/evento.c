@@ -77,7 +77,6 @@ void remover_evento(Evento **lista_eventos, const char *nome_evento) {
     }
 
     printf("Evento \"%s\" não encontrado na lista.\n", nome_evento);
-    salvar_eventos_e_times(*lista_eventos);
 }
 
 // Função para adicionar um time a um evento
@@ -94,7 +93,6 @@ void adicionar_time_a_evento(Evento *evento) {
     novo_time->prox = evento->times; // O próximo time agora será o antigo primeiro time na lista
     
     evento->times = novo_time; // Atualizar o ponteiro para o primeiro time na lista
-    salvar_eventos_e_times(evento);
 }
 
 // Função para remover um time de um evento
@@ -120,7 +118,6 @@ void remover_time_de_evento(Evento *evento, const char *nome_time) {
     }
 
     printf("Time \"%s\" não encontrado no evento \"%s\".\n", nome_time, evento->nome);
-    salvar_eventos_e_times(evento);
 }
 
 // Função para imprimir todos os eventos na lista
@@ -134,10 +131,7 @@ void imprimir_eventos(Evento *lista_eventos) {
         printf("Times associados ao evento \"%s\":\n", evento_atual->nome);
         Times *time_atual = evento_atual->times;
         while (time_atual != NULL) {
-            printf("- Nome do time: %s\n", time_atual->nome);
-            printf("  Origem: %s\n", time_atual->origem);
-            printf("  Técnico: %s\n", time_atual->tecnico);
-            printf("  Quantidade de jogadores: %d\n\n", time_atual->qtd_jogadores);
+            Exibi_Times(time_atual);
             time_atual = time_atual->prox;
         }
         
@@ -147,13 +141,19 @@ void imprimir_eventos(Evento *lista_eventos) {
 }
 
 void preencher_Evento(Evento *novo_evento){
-    printf("Nome do evento: ");
-    fgets(novo_evento->nome, 50, stdin);
-    novo_evento->nome[strcspn(novo_evento->nome, "\n")] = '\0'; // Remover o '\n' do final da string
+    do
+    {
+        printf("Nome do evento: ");
+        fgets(novo_evento->nome, 50, stdin);
+        novo_evento->nome[strcspn(novo_evento->nome, "\n")] = '\0';
+    } while (contem_apenas_letras(novo_evento->nome) == 0);
     
-    printf("Tipo do evento: ");
-    fgets(novo_evento->tipo, 50, stdin);
-    novo_evento->tipo[strcspn(novo_evento->tipo, "\n")] = '\0'; // Remover o '\n' do final da string
+    do
+    {
+        printf("Tipo do evento: ");
+        fgets(novo_evento->tipo, 50, stdin);
+        novo_evento->tipo[strcspn(novo_evento->tipo, "\n")] = '\0';
+    } while (contem_apenas_letras(novo_evento->tipo) == 0);
 }
 
 Times *buscar_time_por_nome(Evento *lista_eventos) {
@@ -162,7 +162,7 @@ Times *buscar_time_por_nome(Evento *lista_eventos) {
 
     printf("Informe o nome do evento: ");
     fgets(nome_evento, sizeof(nome_evento), stdin);
-    nome_evento[strcspn(nome_evento, "\n")] = '\0'; // Remover o '\n' do final da string
+    nome_evento[strcspn(nome_evento, "\n")] = '\0'; 
 
     Evento *evento_atual = lista_eventos;
     while (evento_atual != NULL) {
@@ -177,11 +177,7 @@ Times *buscar_time_por_nome(Evento *lista_eventos) {
             while (time_atual != NULL) {
                 if (strcmp(time_atual->nome, nome_time) == 0) {
                     printf("Time \"%s\" encontrado no evento \"%s\"!\n", nome_time, nome_evento);
-                    printf("Detalhes do time:\n");
-                    printf("Nome: %s\n", time_atual->nome);
-                    printf("Origem: %s\n", time_atual->origem);
-                    printf("Técnico: %s\n", time_atual->tecnico);
-                    printf("Quantidade de jogadores: %d\n", time_atual->qtd_jogadores);
+                    Exibi_Times(time_atual);
                     return time_atual; // Retorna o ponteiro para o time encontrado
                 }
                 time_atual = time_atual->prox;
@@ -220,18 +216,7 @@ void *editar_time(Evento *lista_eventos) {
                     printf("Time \"%s\" encontrado no evento \"%s\"!\n", nome_time, nome_evento);
                     printf("Detalhes do time:\n");
                     
-                    printf("novo nome: ");
-                    scanf(" %[^\n]", time_atual->nome);
-
-                    printf("nova origem: ");
-                    scanf(" %[^\n]", time_atual->origem);
-                    
-                    printf("novo tecnico: ");
-                    scanf(" %[^\n]", time_atual->tecnico);
-                    
-                    printf("nova quantidade de jogadores: ");
-                    scanf("%d", &time_atual->qtd_jogadores);
-                    getchar(); // Limpar o buffer do teclado
+                    adicionar_time(time_atual);
 
                     printf("Time \"%s\" editado com sucesso no evento \"%s\"!\n", nome_time, nome_evento);
                 }
