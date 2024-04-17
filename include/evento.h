@@ -91,6 +91,40 @@ Times *buscar_time_por_nome(Evento *lista_eventos);
  * @return Um ponteiro para o time editado, ou NULL se o time não for encontrado.
  */
 void *editar_time(Evento *lista_eventos);
+
+/**
+ * @brief Adiciona um novo evento à lista de eventos.
+ * 
+ * Esta função recebe um ponteiro para a lista de eventos e um evento a ser adicionado.
+ * Aloca memória para um novo evento, copia os dados do evento fornecido para o novo evento
+ * e insere o novo evento no início da lista de eventos. A lista de eventos é atualizada
+ * para apontar para o novo evento adicionado.
+ * 
+ * @param lista_eventos Ponteiro para o ponteiro da lista de eventos.
+ * @param evento Evento a ser adicionado à lista de eventos.
+ */
 void adicionar_evento_a_lista(Evento **lista_eventos, Evento evento);
+
+/**
+ * @brief Busca um evento na lista de eventos pelo nome.
+ * 
+ * Esta função percorre a lista de eventos procurando por um evento com o nome especificado.
+ * Se o evento for encontrado, um ponteiro para o evento é retornado; caso contrário, retorna NULL.
+ * 
+ * @param lista_eventos Ponteiro para a lista de eventos.
+ * @param nome_evento Nome do evento a ser buscado.
+ * @return Ponteiro para o evento encontrado ou NULL se o evento não for encontrado.
+ */
 Evento *busca_evento(Evento *lista_eventos, char *nome_evento);
+
+/**
+ * @brief Lê os eventos e times de um arquivo e os carrega em uma lista de eventos.
+ * 
+ * Esta função lê os eventos e os times associados a partir de um arquivo e os carrega em uma lista de eventos.
+ * Aloca memória para cada evento e time lidos do arquivo. Retorna um ponteiro para a lista de eventos
+ * carregada a partir do arquivo.
+ * 
+ * @param lista_eventos Ponteiro para a lista de eventos existente (pode ser NULL).
+ * @return Ponteiro para a lista de eventos carregada a partir do arquivo.
+ */
 Evento *ler_eventos_e_times(Evento *lista_eventos);

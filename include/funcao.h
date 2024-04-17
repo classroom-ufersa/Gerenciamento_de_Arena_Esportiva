@@ -19,3 +19,14 @@ void limpar_tela();
  * @return 1 se a string contém apenas letras, 0 caso contrário.
  */
 int contem_apenas_letras(char *str);
+
+/**
+ * @brief Verifica se uma string contém apenas dígitos.
+ * 
+ * Esta função verifica se todos os caracteres da string fornecida são dígitos ('0' a '9').
+ * Retorna 1 se a string contém apenas dígitos ou 0 caso contrário.
+ * 
+ * @param str Ponteiro para a string a ser verificada.
+ * @return 1 se a string contém apenas dígitos, 0 caso contrário.
+ */
+int contem_apenas_digitos(char *str);
