@@ -121,12 +121,24 @@ void adicionar_evento_a_lista(Evento **lista_eventos, Evento evento)
 
     strcpy(novo_evento->nome, evento.nome);
     strcpy(novo_evento->tipo, evento.tipo);
-
     novo_evento->times = NULL;
+    novo_evento->prox = NULL;
 
-    novo_evento->prox = *lista_eventos;
+    if (*lista_eventos == NULL || strcmp(novo_evento->nome, (*lista_eventos)->nome) < 0)
+    {
+        novo_evento->prox = *lista_eventos;
+        *lista_eventos = novo_evento;
+        return;
+    }
 
-    *lista_eventos = novo_evento;
+    Evento *atual = *lista_eventos;
+    while (atual->prox != NULL && strcmp(atual->prox->nome, novo_evento->nome) < 0)
+    {
+        atual = atual->prox;
+    }
+
+    novo_evento->prox = atual->prox;
+    atual->prox = novo_evento;
 }
 
 void remover_evento(Evento **lista_eventos, const char *nome_evento)

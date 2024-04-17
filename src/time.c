@@ -52,22 +52,43 @@ void adicionar_time(Times *novo_time) {
 
 Times *adicionar_time_a_lista(Times *atual, Times time)
 {
-
     Times *novo_time = (Times *)malloc(sizeof(Times));
 
     if (novo_time == NULL)
     {
-        printf("Erro ao alocar memória para o novo evento.\n");
+        printf("Erro ao alocar memória para o novo time.\n");
         return NULL;
     }
 
+    // Copiar os dados do time fornecido para o novo time
     strcpy(novo_time->nome, time.nome);
     strcpy(novo_time->origem, time.origem);
     strcpy(novo_time->tecnico, time.tecnico);
     novo_time->qtd_jogadores = time.qtd_jogadores;
+    novo_time->prox = NULL;
 
-    novo_time->prox = atual;
-    return novo_time;
+    // Caso especial: lista vazia ou novo time deve ser o primeiro da lista
+    if (atual == NULL || strcmp(novo_time->nome, atual->nome) < 0)
+    {
+        novo_time->prox = atual;
+        return novo_time;
+    }
+
+    // Encontrar a posição correta para inserir o novo time na lista ordenada por nome
+    Times *anterior = atual;
+    Times *proximo = atual->prox;
+
+    while (proximo != NULL && strcmp(proximo->nome, novo_time->nome) < 0)
+    {
+        anterior = proximo;
+        proximo = proximo->prox;
+    }
+
+    // Inserir o novo time entre anterior e proximo na lista
+    anterior->prox = novo_time;
+    novo_time->prox = proximo;
+
+    return atual;
 }
 
 void Exibi_Times(Times *time_atual){
