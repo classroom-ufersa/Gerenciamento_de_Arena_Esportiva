@@ -327,12 +327,9 @@ void *editar_time(Evento *lista_eventos)
                 time_atual = time_atual->prox;
             }
         }
-        else
-        {
-            printf("Evento \"%s\" não encontrado na lista.\n", nome_evento);
-        }
         evento_atual = evento_atual->prox;
     }
+    printf("Evento \"%s\" não encontrado na lista.\n", nome_evento);
 }
 
 Evento *busca_evento(Evento *lista_eventos, char *nome_evento)

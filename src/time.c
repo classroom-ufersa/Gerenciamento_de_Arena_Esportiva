@@ -9,6 +9,7 @@ struct times {
 };
 
 void adicionar_time(Times *novo_time) {
+    char qtd_jogadores_str[20];
     do
     {
         printf("Nome do time: ");
@@ -30,9 +31,23 @@ void adicionar_time(Times *novo_time) {
         novo_time->tecnico[strcspn(novo_time->tecnico, "\n")] = '\0';
     } while (contem_apenas_letras(novo_time->tecnico) == 0);
     
-    printf("Quantidade de jogadores: ");
-    scanf("%d", &novo_time->qtd_jogadores);
-    getchar();
+    do
+    {
+        printf("Quantidade de jogadores: ");
+        fgets(qtd_jogadores_str, sizeof(qtd_jogadores_str), stdin);
+        qtd_jogadores_str[strcspn(qtd_jogadores_str, "\n")] = '\0';
+
+        // Verificar se a entrada contém apenas dígitos
+        if (!contem_apenas_digitos(qtd_jogadores_str))
+        {
+            printf("Entrada inválida. Digite apenas números.\n");
+        }
+        else
+        {
+            novo_time->qtd_jogadores = atoi(qtd_jogadores_str);
+            break;
+        }
+    } while (1);
 }
 
 Times *adicionar_time_a_lista(Times *atual, Times time)

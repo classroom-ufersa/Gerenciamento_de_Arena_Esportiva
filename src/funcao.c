@@ -20,3 +20,14 @@ int contem_apenas_letras(char *str) {
     }
     return 1;
 }
+
+int contem_apenas_digitos(const char *str)
+{
+    while (*str != '\0')
+    {
+        if (!isdigit(*str))
+            return 0;
+        str++;
+    }
+    return 1;
+}

@@ -1,2 +1,5 @@
-Evento:eventoa	tipoa
-Time:timenovo	brasil	gabriel	50
+Evento:c	tipo
+Evento:b	tipo
+Evento:a	tipo
+Time:timao	origami	tecnicinqo	45
+Evento:d	tipo
