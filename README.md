@@ -23,7 +23,7 @@ O sistema desse repositorio, permite que o usuário seja capaz de gerenciar uma 
 ***
 
 # Problemática
-Projetar um sistema na Linguagem C para gerenciamemto de uma arena esportiva. O sistema terá que manipular eventos e times.
+Projetar um sistema na Linguagem C para gerenciamemto de uma arena esportiva. O sistema terá que manipular os nome e tipos dos eventos e os nomes, origem, tecnicos e a quantidade de jogadores dos times.
 ***
 
 ## Menu

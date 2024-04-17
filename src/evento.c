@@ -141,7 +141,7 @@ void adicionar_evento_a_lista(Evento **lista_eventos, Evento evento)
     atual->prox = novo_evento;
 }
 
-void remover_evento(Evento **lista_eventos, const char *nome_evento)
+void remover_evento(Evento **lista_eventos, char *nome_evento)
 {
     Evento *atual = *lista_eventos;
     Evento *anterior = NULL;
@@ -173,22 +173,46 @@ void remover_evento(Evento **lista_eventos, const char *nome_evento)
 
 void adicionar_time_a_evento(Evento *evento)
 {
+    // Aloca memória para um novo time
     Times *novo_time = (Times *)malloc(sizeof(Times));
 
+    // Verifica se a alocação de memória foi bem-sucedida
     if (novo_time == NULL)
     {
         printf("Erro ao alocar memória para o novo time.\n");
         return;
     }
 
+    // Chama a função para adicionar informações ao novo time
     adicionar_time(novo_time);
 
-    novo_time->prox = evento->times;
+    // Encontrar a posição correta para inserir o novo time na lista ordenada
+    Times *atual = evento->times;
+    Times *anterior = NULL;
 
-    evento->times = novo_time;
+    // Encontra a posição correta para inserir o novo time em ordem alfabética
+    while (atual != NULL && strcmp(atual->nome, novo_time->nome) < 0)
+    {
+        anterior = atual;
+        atual = atual->prox;
+    }
+
+    // Insere o novo time na posição correta da lista
+    if (anterior == NULL)
+    {
+        // Inserir no início da lista
+        novo_time->prox = evento->times;
+        evento->times = novo_time;
+    }
+    else
+    {
+        // Inserir após o nó anterior na lista
+        anterior->prox = novo_time;
+        novo_time->prox = atual;
+    }
 }
 
-void remover_time_de_evento(Evento *evento, const char *nome_time)
+void remover_time_de_evento(Evento *evento, char *nome_time)
 {
     Times *atual = evento->times;
     Times *anterior = NULL;

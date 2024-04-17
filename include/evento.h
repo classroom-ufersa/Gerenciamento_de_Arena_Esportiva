@@ -32,7 +32,7 @@ void adicionar_evento(Evento **lista_eventos);
  * @param lista_eventos Um ponteiro para a lista de eventos.
  * @param nome_evento O nome do evento a ser removido.
  */
-void remover_evento(Evento **lista_eventos, const char *nome_evento);
+void remover_evento(Evento **lista_eventos, char *nome_evento);
 
 /**
  * @brief Adiciona um time a um evento específico.
@@ -51,7 +51,7 @@ void adicionar_time_a_evento(Evento *evento);
  * @param evento Um ponteiro para o evento do qual o time será removido.
  * @param nome_time O nome do time a ser removido.
  */
-void remover_time_de_evento(Evento *evento, const char *nome_time);
+void remover_time_de_evento(Evento *evento, char *nome_time);
 
 /**
  * @brief Imprime todos os eventos e os times associados a eles.

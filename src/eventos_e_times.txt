@@ -1,9 +1,4 @@
-Evento:a	tipo
-Time:r	xxxxx	xxxxx	56
-Time:s	xxxxxx	xxxxxx	56
-Evento:b	tipo
-Evento:c	tipo
-Evento:d	tipo
-Evento:e	tipo
-Evento:f	tipo
-Evento:g	tipo
+Evento:evento azul	futebol
+Time:time azul	brasil	luis	20
+Evento:evento vermelho	futebol
+Time:time vermelho	brasil	fabio	20
